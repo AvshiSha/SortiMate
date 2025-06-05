@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b4ec99b7-8873-46b1-b249-f9e9216862e7" name="Changes" comment="Ok, right now I have succeeded in merging the two functions. By pressing the 'c' key, we can take a pic and classify the product!">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {}
+}]]></component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AvshiSha/SortiMate.git&quot;,
+    &quot;accountId&quot;: &quot;6c86d969-99eb-4960-8afb-7cc69392b148&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2u8Mjbx9xBTtOlTvLhzLA4lt1vT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.Main.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.train_waste_model.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;laser-detect-bottle-branch&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Desktop/Project_SortiMate/Main.py&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Project_SortiMate" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PY-243.26053.29" />
+        <option value="bundled-python-sdk-b1dbf8ef85a6-4df51de95216-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.26053.29" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b4ec99b7-8873-46b1-b249-f9e9216862e7" name="Changes" comment="" />
+      <created>1741625884100</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1741625884100</updated>
+      <workItem from="1741625885203" duration="2206000" />
+      <workItem from="1741631907872" duration="34000" />
+      <workItem from="1741632091159" duration="167000" />
+      <workItem from="1741676102827" duration="7504000" />
+      <workItem from="1741774067293" duration="721000" />
+      <workItem from="1742567302502" duration="19000" />
+      <workItem from="1742575225181" duration="735000" />
+      <workItem from="1742576008674" duration="267000" />
+      <workItem from="1742576289146" duration="122000" />
+      <workItem from="1742576418720" duration="5906000" />
+      <workItem from="1742915142851" duration="1295000" />
+      <workItem from="1743001831003" duration="837000" />
+      <workItem from="1743004839959" duration="2019000" />
+      <workItem from="1743008776709" duration="3671000" />
+      <workItem from="1743091711784" duration="63000" />
+      <workItem from="1743091796123" duration="1481000" />
+      <workItem from="1743097899651" duration="28000" />
+      <workItem from="1743097933912" duration="1899000" />
+      <workItem from="1743240174954" duration="241000" />
+      <workItem from="1743489449787" duration="159000" />
+      <workItem from="1743506754126" duration="1230000" />
+      <workItem from="1744460178163" duration="15000" />
+      <workItem from="1745136232774" duration="10553000" />
+      <workItem from="1746458711661" duration="1349000" />
+      <workItem from="1747043064475" duration="682000" />
+      <workItem from="1747815710181" duration="389000" />
+    </task>
+    <task id="LOCAL-00001" summary="uplaod new function that gets a photo and classify it">
+      <option name="closed" value="true" />
+      <created>1741774752339</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1741774752339</updated>
+    </task>
+    <task id="LOCAL-00002" summary="changing the type of the main, which be based on open source in Huggingface.">
+      <option name="closed" value="true" />
+      <created>1742914923214</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1742914923214</updated>
+    </task>
+    <task id="LOCAL-00003" summary="changing the type of the main, which be based on open source in Huggingface.">
+      <option name="closed" value="true" />
+      <created>1742914980905</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1742914980905</updated>
+    </task>
+    <task id="LOCAL-00004" summary="changing the type of the main, which is right now recognize the an image through path in the C: disk.">
+      <option name="closed" value="true" />
+      <created>1743008879933</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1743008879933</updated>
+    </task>
+    <task id="LOCAL-00005" summary="changing the type of the main, which is right now recognize the an image through path in the C: disk.">
+      <option name="closed" value="true" />
+      <created>1743489494032</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1743489494032</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Ok, right now I have succeeded in merging the two functions. By pressing the 'c' key, we can take a pic and classify the product!">
+      <option name="closed" value="true" />
+      <created>1745390796996</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1745390796996</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="uplaod new function that gets a photo and classify it" />
+    <MESSAGE value="changing the type of the main, which be based on open source in Huggingface." />
+    <MESSAGE value="changing the type of the main, which is right now recognize the an image through path in the C: disk." />
+    <MESSAGE value="Ok, right now I have succeeded in merging the two functions. By pressing the 'c' key, we can take a pic and classify the product!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ok, right now I have succeeded in merging the two functions. By pressing the 'c' key, we can take a pic and classify the product!" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/train_waste_model.py</url>
+          <line>6</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Main_py$train_waste_model.coverage" NAME="train_waste_model Coverage Results" MODIFIED="1741774189322" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Main_py$Main.coverage" NAME="Main Coverage Results" MODIFIED="1741774641446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Project_SortiMate$Main.coverage" NAME="Main Coverage Results" MODIFIED="1741626866537" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
