@@ -1,63 +1,72 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { auth } from './firebase/config';
+
 import IntroductionPage from './components/IntroductionPage';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import UserDashboard from './components/UserDashboard';
+import BinScanner from './components/BinScanner';
+import BinDetails from './components/BinDetails';
+
 import './App.css';
 
-function App() {
-  const [currentPage, setCurrentPage] = useState('intro'); // 'intro', 'signup', or 'signin'
+function AppRouterWrapper() {
   const [successMessage, setSuccessMessage] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setIsAuthenticated(!!user);
+      const isLoggedIn = !!user;
+      setIsAuthenticated(isLoggedIn);
+
+      if (isLoggedIn && location.pathname === '/') {
+        navigate('/dashboard');
+      }
     });
 
     return () => unsubscribe();
-  }, []);
-
-  const handleSignUpClick = () => {
-    setSuccessMessage('');
-    setCurrentPage('signup');
-  };
-
-  const handleSignInClick = () => {
-    setSuccessMessage('');
-    setCurrentPage('signin');
-  };
-
-  const handleBackClick = () => {
-    setSuccessMessage('');
-    setCurrentPage('intro');
-  };
-
-  const handleSignUpSuccess = (message) => {
-    setSuccessMessage(message);
-    setCurrentPage('intro');
-  };
-
-  if (isAuthenticated) {
-    return <UserDashboard />;
-  }
+  }, [location.pathname, navigate]);
 
   return (
-    <div className="App">
-      {currentPage === 'intro' && (
-        <IntroductionPage 
-          onSignUpClick={handleSignUpClick} 
-          onSignInClick={handleSignInClick}
+    <Routes>
+      <Route path="/" element={
+        <IntroductionPage
+          onSignUpClick={() => navigate('/signup')}
+          onSignInClick={() => navigate('/signin')}
           successMessage={successMessage}
         />
-      )}
-      {currentPage === 'signup' && (
-        <SignUp onBack={handleBackClick} onSuccess={handleSignUpSuccess} />
-      )}
-      {currentPage === 'signin' && (
-        <SignIn onBack={handleBackClick} />
-      )}
+      } />
+      <Route path="/signup" element={
+        <SignUp
+          onBack={() => navigate('/')}
+          onSuccess={(msg) => {
+            setSuccessMessage(msg);
+            navigate('/');
+          }}
+        />
+      } />
+      <Route path="/signin" element={
+        <SignIn
+          onBack={() => navigate('/')}
+        />
+      } />
+      <Route path="/dashboard" element={<UserDashboard />} />
+      <Route path="/scan" element={<BinScanner />} />
+      <Route path="/bin/:binId" element={<BinDetails />} />
+    </Routes>
+  );
+}
+
+function App() {
+  return (
+    <div className="App">
+      <Router>
+        <AppRouterWrapper />
+      </Router>
     </div>
   );
 }

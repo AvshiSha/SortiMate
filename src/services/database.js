@@ -15,12 +15,13 @@ export const createUserProfile = async (userId, userData) => {
   try {
     await setDoc(doc(db, 'users', userId), {
       ...userData,
-      createdAt: Timestamp.now(),
-      points: 0,
-      recyclingHistory: [],
-      achievements: [],
-      lastRecyclingDate: null,
-      totalRecycled: 0
+      created_at: Timestamp.now(),
+      recycle_stats: { aluminium: 0, glass: 0, other: 0, plastic: 0 },
+      total_points: 0,
+      items_recycled: 0,
+      family: { group_id: '', is_current_winner: false, total_wins: 0 },
+      role: 'user',
+      last_activity: Timestamp.now()
     });
     return true;
   } catch (error) {

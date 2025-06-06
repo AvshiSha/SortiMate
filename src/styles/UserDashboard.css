@@ -1,15 +1,14 @@
 .dashboard-container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
   position: relative;
 }
 
 .user-info {
-  background-color: #f5f5f5;
-  border-radius: 10px;
+  background: #f9f9f9;
   padding: 20px;
-  margin-bottom: 20px;
+  border-radius: 4px;
 }
 
 .user-info h2 {
@@ -157,17 +156,72 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  background-color: transparent;
-  color: #d32f2f;
-  border: 2px solid #d32f2f;
   padding: 8px 16px;
-  border-radius: 5px;
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s;
 }
 
 .logout-btn:hover {
-  background-color: #d32f2f;
-  color: white;
+  background-color: #cc0000;
+}
+
+.tabs-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #666;
+  transition: all 0.3s;
+  border-radius: 4px 4px 0 0;
+}
+
+.tab-btn:hover {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.tab-btn.active {
+  color: #4CAF50;
+  border-bottom: 2px solid #4CAF50;
+  font-weight: 500;
+}
+
+.tab-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-section {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.profile-section h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.user-info p {
+  margin: 10px 0;
+  color: #666;
+}
+
+.user-info strong {
+  color: #333;
+  margin-right: 10px;
 } 

@@ -2,7 +2,6 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
-// TODO: Replace these values with your Firebase config from the Firebase Console
 const firebaseConfig = {
   apiKey: "AIzaSyBKRSZOGEyYLcmAVEVb26nJs-9FTZfYZEQ",
   authDomain: "sortimate0.firebaseapp.com",

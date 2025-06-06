@@ -1,21 +1,37 @@
+// ✅ SignUp.jsx
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/config';
-import { createUserProfile } from '../services/database';
+import { getFirestore, doc, setDoc, getDoc, getDocs, query, collection, where } from 'firebase/firestore';
 import '../styles/SignUp.css';
+
+const isValidIsraeliID = (id) => {
+  id = String(id).trim();
+  if (id.length !== 9 || !/^\d+$/.test(id)) return false;
+  let sum = 0;
+  for (let i = 0; i < 9; i++) {
+    let num = +id[i] * ((i % 2) + 1);
+    if (num > 9) num -= 9;
+    sum += num;
+  }
+  return sum % 10 === 0;
+};
 
 const SignUp = ({ onBack, onSuccess }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
+    idNumber: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
+
   const [showPasswords, setShowPasswords] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+  const db = getFirestore();
 
   const handleChange = (e) => {
     setFormData({
@@ -24,9 +40,7 @@ const SignUp = ({ onBack, onSuccess }) => {
     });
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPasswords(!showPasswords);
-  };
+  const togglePasswordVisibility = () => setShowPasswords(!showPasswords);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,27 +48,49 @@ const SignUp = ({ onBack, onSuccess }) => {
     setSuccess('');
     setLoading(true);
 
-    if (formData.password !== formData.confirmPassword) {
+    const { firstName, lastName, idNumber, email, password, confirmPassword } = formData;
+
+    if (!isValidIsraeliID(idNumber)) {
+      setError('Invalid ID number');
+      setLoading(false);
+      return;
+    }
+
+    if (password !== confirmPassword) {
       setError('Passwords do not match');
       setLoading(false);
       return;
     }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        formData.email,
-        formData.password
-      );
+      const existingUser = await getDocs(query(collection(db, 'users'), where('user_id', '==', idNumber)));
+      if (!existingUser.empty) {
+        setError('A user with this ID already exists');
+        setLoading(false);
+        return;
+      }
 
-      await createUserProfile(userCredential.user.uid, {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email
+      const fakeEmail = `${idNumber}@sortimate.local`;
+      const userCredential = await createUserWithEmailAndPassword(auth, fakeEmail, password);
+      const { uid } = userCredential.user;
+      const userRef = doc(db, 'users', uid);
+
+      await setDoc(userRef, {
+        user_id: idNumber,
+        auth_uid: uid,
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        created_at: new Date(),
+        recycle_stats: { aluminium: 0, glass: 0, other: 0, plastic: 0 },
+        total_points: 0,
+        items_recycled: 0,
+        family: { group_id: '', is_current_winner: false, total_wins: 0 },
+        role: 'user',
+        last_activity: new Date()
       });
 
-      const successMessage = 'Account created successfully! You can now sign in.';
-      onSuccess(successMessage);
+      onSuccess('Account created successfully! You can now sign in.');
 
     } catch (error) {
       console.error('Sign up error:', error);
@@ -63,6 +99,7 @@ const SignUp = ({ onBack, onSuccess }) => {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="signup-container">
@@ -94,6 +131,19 @@ const SignUp = ({ onBack, onSuccess }) => {
               />
             </div>
           </div>
+
+          <div className="form-group">
+            <input
+              type="text"
+              name="idNumber"
+              value={formData.idNumber}
+              onChange={handleChange}
+              placeholder="ID (9 digits)"
+              required
+              pattern="\d{9}"
+            />
+          </div>
+
           <div className="form-group">
             <input
               type="email"
@@ -104,6 +154,7 @@ const SignUp = ({ onBack, onSuccess }) => {
               required
             />
           </div>
+
           <div className="form-group password-group">
             <input
               type={showPasswords ? "text" : "password"}
@@ -121,6 +172,7 @@ const SignUp = ({ onBack, onSuccess }) => {
               {showPasswords ? "👁️" : "👁️‍🗨️"}
             </button>
           </div>
+
           <div className="form-group password-group">
             <input
               type={showPasswords ? "text" : "password"}
@@ -138,6 +190,7 @@ const SignUp = ({ onBack, onSuccess }) => {
               {showPasswords ? "👁️" : "👁️‍🗨️"}
             </button>
           </div>
+
           <button type="submit" disabled={loading} className="submit-btn">
             {loading ? 'Creating Account...' : 'Sign Up'}
           </button>
@@ -147,4 +200,4 @@ const SignUp = ({ onBack, onSuccess }) => {
   );
 };
 
-export default SignUp; 
+export default SignUp;

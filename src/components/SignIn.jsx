@@ -1,16 +1,33 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 import { auth } from '../firebase/config';
 import '../styles/SignIn.css';
+import { useNavigate } from 'react-router-dom';
+
+const signInWithIDAndPassword = async (idNumber, password) => {
+  // שלוף את האימייל הפיקטיבי מהת"ז
+  const db = getFirestore();
+  const q = query(collection(db, 'users'), where('user_id', '==', idNumber));
+  const querySnapshot = await getDocs(q);
+  if (querySnapshot.empty) {
+    throw new Error('No user found with this ID number');
+  }
+  // צור את האימייל הפיקטיבי
+  const fakeEmail = `${idNumber}@sortimate.local`;
+  return signInWithEmailAndPassword(auth, fakeEmail, password);
+};
 
 const SignIn = ({ onBack }) => {
   const [formData, setFormData] = useState({
-    email: '',
+    idNumber: '',
     password: '',
   });
+
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -29,12 +46,8 @@ const SignIn = ({ onBack }) => {
     setLoading(true);
 
     try {
-      await signInWithEmailAndPassword(
-        auth,
-        formData.email,
-        formData.password
-      );
-      // The auth state listener in App.jsx will handle the navigation
+      await signInWithIDAndPassword(formData.idNumber, formData.password);
+      navigate('/dashboard');
     } catch (error) {
       console.error('Sign in error:', error);
       setError(error.message);
@@ -52,12 +65,13 @@ const SignIn = ({ onBack }) => {
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <input
-              type="email"
-              name="email"
-              value={formData.email}
+              type="text"
+              name="idNumber"
+              value={formData.idNumber}
               onChange={handleChange}
-              placeholder="Email"
+              placeholder="ID Number (9 digits)"
               required
+              pattern="\d{9}"
             />
           </div>
           <div className="form-group password-group">
@@ -86,4 +100,4 @@ const SignIn = ({ onBack }) => {
   );
 };
 
-export default SignIn; 
+export default SignIn;
