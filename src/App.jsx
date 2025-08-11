@@ -6,8 +6,11 @@ import IntroductionPage from './components/IntroductionPage';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import UserDashboard from './components/UserDashboard';
+import GuestDashboard from './components/GuestDashboard';
 import BinScanner from './components/BinScanner';
 import BinDetails from './components/BinDetails';
+import BinPage from './components/BinPage';
+import LoadingScreen from './components/LoadingScreen';
 
 import './App.css';
 
@@ -37,6 +40,7 @@ function AppRouterWrapper() {
         <IntroductionPage
           onSignUpClick={() => navigate('/signup')}
           onSignInClick={() => navigate('/signin')}
+          onGuestClick={() => navigate('/guest-dashboard')}
           successMessage={successMessage}
         />
       } />
@@ -45,7 +49,14 @@ function AppRouterWrapper() {
           onBack={() => navigate('/')}
           onSuccess={(msg) => {
             setSuccessMessage(msg);
-            navigate('/');
+            // Check if there's a redirect bin ID stored
+            const redirectBinId = sessionStorage.getItem('redirectBinId');
+            if (redirectBinId) {
+              sessionStorage.removeItem('redirectBinId');
+              navigate(`/dashboard?bin=${redirectBinId}`);
+            } else {
+              navigate('/');
+            }
           }}
         />
       } />
@@ -55,18 +66,38 @@ function AppRouterWrapper() {
         />
       } />
       <Route path="/dashboard" element={<UserDashboard />} />
+      <Route path="/guest-dashboard" element={<GuestDashboard />} />
       <Route path="/scan" element={<BinScanner />} />
-      <Route path="/bin/:binId" element={<BinDetails />} />
+      <Route path="/bin/:binId" element={<BinPage />} />
     </Routes>
   );
 }
 
 function App() {
+  const [showLoading, setShowLoading] = useState(true);
+
+  useEffect(() => {
+    // Show loading screen for 4-5 seconds for a more polished experience
+    const timer = setTimeout(() => {
+      setShowLoading(false);
+    }, 4500); // 4.5 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleLoadingComplete = () => {
+    setShowLoading(false);
+  };
+
   return (
     <div className="App">
-      <Router>
-        <AppRouterWrapper />
-      </Router>
+      {showLoading ? (
+        <LoadingScreen onComplete={handleLoadingComplete} />
+      ) : (
+        <Router>
+          <AppRouterWrapper />
+        </Router>
+      )}
     </div>
   );
 }

@@ -1,21 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { getFirestore, collection, doc, setDoc, getDocs } from 'firebase/firestore';
-import '../styles/RecyclingBin.css';
+import '../styles/AdminBinManager.css';
 import { QRCode } from 'react-qr-code';
 
-const RecyclingBin = () => {
+const AdminBinManager  = () => {
   const [allBins, setAllBins] = useState([]);
 
-  const generateBinId = () => {
-    const timestamp = Date.now().toString(36);
-    const randomStr = Math.random().toString(36).substring(2, 8);
-    return `BIN-${timestamp}-${randomStr}`;
+  const generateBinId = (bins) => {
+    // Find the highest serial number among existing bins
+    let maxSerial = 0;
+    bins.forEach(bin => {
+      const match = bin.bin_id && bin.bin_id.match(/^bin_(\d{3})$/i);
+      if (match) {
+        const serial = parseInt(match[1], 10);
+        if (serial > maxSerial) maxSerial = serial;
+      }
+    });
+    const nextSerial = (maxSerial + 1).toString().padStart(3, '0');
+    return `bin_${nextSerial}`;
   };
 
   const createNewBin = async () => {
     try {
       const db = getFirestore();
-      const binId = generateBinId();
+      // Fetch all bins to determine the next serial number
+      const binsSnapshot = await getDocs(collection(db, 'bins'));
+      const bins = binsSnapshot.docs.map(doc => doc.data());
+      const binId = generateBinId(bins);
       const binRef = doc(db, 'bins', binId);
       const bin = {
         bin_id: binId,
@@ -41,10 +52,19 @@ const RecyclingBin = () => {
   const fetchAllBins = async () => {
     try {
       const db = getFirestore();
+      console.log('🔍 Fetching bins from Firestore...');
       const binsSnapshot = await getDocs(collection(db, 'bins'));
-      setAllBins(binsSnapshot.docs.map(doc => doc.data()));
+      console.log('📊 Total bins found:', binsSnapshot.size);
+      console.log('📋 All bins in database:', binsSnapshot.docs.map(doc => ({
+        docId: doc.id,
+        data: doc.data()
+      })));
+      const binsData = binsSnapshot.docs.map(doc => doc.data());
+      console.log('🎯 Setting bins state:', binsData);
+      setAllBins(binsData);
     } catch (error) {
-      console.error('Error fetching bins:', error);
+      console.error('❌ Error fetching bins:', error);
+      alert('Error fetching bins: ' + error.message);
     }
   };
 
@@ -59,7 +79,8 @@ const RecyclingBin = () => {
       <button onClick={createNewBin} className="create-bin-btn">Create New Bin</button>
 
       <div className="all-bins-list">
-        <h3>All Bins</h3>
+        <h3>All Bins ({allBins.length} found)</h3>
+        {console.log('🎨 Rendering bins:', allBins)}
         {allBins.length === 0 && <div>No bins found.</div>}
         {allBins.map((bin) => (
           <div key={bin.bin_id} className="bin-info-card">
@@ -81,7 +102,7 @@ const RecyclingBin = () => {
             {/* ✅ Show QR code for each bin */}
             <div className="qr-display">
               <p>Scan to identify this bin:</p>
-              <QRCode value={bin.bin_id} size={120} />
+              <QRCode value={`https://sortimate0.web.app/bin/${bin.bin_id}`} size={120} />
             </div>
           </div>
         ))}
@@ -90,5 +111,5 @@ const RecyclingBin = () => {
   );
 };
 
-export default RecyclingBin;
+export default AdminBinManager;
 

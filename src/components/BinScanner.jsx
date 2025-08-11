@@ -3,8 +3,6 @@ import { getFirestore, collection, doc, getDoc, setDoc, updateDoc, onSnapshot } 
 import { getAuth } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
-import '../styles/BinScanner.css';
-
 const BinScanner = () => {
   const [scanning, setScanning] = useState(false);
   const [currentBin, setCurrentBin] = useState(null);
@@ -88,37 +86,101 @@ const BinScanner = () => {
   };
 
   return (
-    <div className="bin-scanner-container">
+    <div className="container">
+      {/* Header */}
+      <div className="card mb-4">
+        <div className="text-center">
+          <div className="text-success" style={{ fontSize: '3rem' }}>📱</div>
+          <h1 className="text-success">Bin Scanner</h1>
+          <p className="text-secondary">Scan QR codes to access recycling bins</p>
+        </div>
+      </div>
+
       {activeTab === 'scan' ? (
-        <div className="scan-tab">
-          <h2>Scan Bin QR Code</h2>
-          <button onClick={() => setScanning(true)} className="scan-btn">Start Scanning</button>
-          
-          {scanning && (
-            <div className="scanner-container">
-              <h3>Scan a bin QR code</h3>
-              <video id="qr-video" className="qr-video"></video>
-              <button onClick={() => setScanning(false)} className="cancel-btn">Cancel Scan</button>
-            </div>
-          )}
+        <div className="card">
+          <div className="text-center">
+            <h3>🔍 Scan Bin QR Code</h3>
+            <p className="text-secondary mb-4">Point your camera at a bin's QR code to start recycling</p>
+            
+            <button 
+              onClick={() => setScanning(true)} 
+              className="btn btn-primary btn-lg"
+            >
+              📷 Start Scanning
+            </button>
+            
+            {scanning && (
+              <div className="mt-4">
+                <div className="card">
+                  <h4 className="text-center">📱 Scanner Active</h4>
+                  <p className="text-center text-secondary">Point camera at QR code</p>
+                  <video 
+                    id="qr-video" 
+                    className="card"
+                    style={{ 
+                      width: '100%', 
+                      maxWidth: '400px', 
+                      height: '300px',
+                      objectFit: 'cover',
+                      borderRadius: 'var(--border-radius-md)'
+                    }}
+                  ></video>
+                  <div className="text-center mt-3">
+                    <button 
+                      onClick={() => setScanning(false)} 
+                      className="btn btn-outline"
+                    >
+                      ❌ Cancel Scan
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       ) : (
-        <div className="waiting-tab">
-          <div className="waiting-container">
+        <div className="card">
+          <div className="text-center">
+            <div className="text-info" style={{ fontSize: '3rem' }}>⏳</div>
             <h3>Waiting for recycling event...</h3>
-            <p>Bin ID: {currentBin?.id}</p>
-            <p>Status: {binData?.status}</p>
-            <div className="capacity-info">
-              <h4>Current Capacity:</h4>
-              <p>Plastic: {binData?.capacity?.plastic || 0}</p>
-              <p>Glass: {binData?.capacity?.glass || 0}</p>
-              <p>Aluminium: {binData?.capacity?.aluminium || 0}</p>
-              <p>Other: {binData?.capacity?.other || 0}</p>
+            <p className="text-secondary">Bin ID: {currentBin?.id}</p>
+            <div className="badge badge-info">{binData?.status}</div>
+            
+            <div className="card mt-4">
+              <h4>📊 Current Capacity</h4>
+              <div className="grid grid-2">
+                <div className="text-center">
+                  <div className="text-info font-bold">🥤</div>
+                  <p className="text-secondary">Plastic: {binData?.capacity?.plastic || 0}</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-warning font-bold">🍾</div>
+                  <p className="text-secondary">Glass: {binData?.capacity?.glass || 0}</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-purple font-bold">🥫</div>
+                  <p className="text-secondary">Aluminium: {binData?.capacity?.aluminium || 0}</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-success font-bold">📦</div>
+                  <p className="text-secondary">Other: {binData?.capacity?.other || 0}</p>
+                </div>
+              </div>
             </div>
-            <button onClick={leaveBin} className="leave-btn">Leave Bin</button>
+            
+            <button onClick={leaveBin} className="btn btn-danger mt-4">
+              🚪 Leave Bin
+            </button>
           </div>
         </div>
       )}
+
+      {/* Back button */}
+      <div className="text-center mt-4">
+        <button className="btn btn-outline" onClick={() => navigate('/dashboard')}>
+          ← Back to Dashboard
+        </button>
+      </div>
     </div>
   );
 };

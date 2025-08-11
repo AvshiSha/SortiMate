@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/config';
 import { getFirestore, doc, setDoc, getDoc, getDocs, query, collection, where } from 'firebase/firestore';
-import '../styles/SignUp.css';
 
 const isValidIsraeliID = (id) => {
   id = String(id).trim();
@@ -100,101 +99,213 @@ const SignUp = ({ onBack, onSuccess }) => {
     }
   };
 
-
   return (
-    <div className="signup-container">
-      <div className="signup-box">
-        <button className="back-btn" onClick={onBack}>← Back</button>
-        <h2>Create Account</h2>
-        {error && <div className="error-message">{error}</div>}
-        {success && <div className="success-message">{success}</div>}
-        <form onSubmit={handleSubmit}>
-          <div className="name-fields">
-            <div className="form-group">
+    <div className="container-sm">
+      <div className="card">
+        <div className="text-center mb-4">
+          <div className="text-success" style={{ fontSize: '4rem' }}>🌱</div>
+          <h1 className="text-success">Join SortiMate!</h1>
+          <p className="text-secondary">Start your recycling journey today</p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="grid grid-1">
+          <div className="grid grid-2">
+            <div>
+              <label htmlFor="firstName" className="font-semibold">👤 First Name</label>
               <input
                 type="text"
+                id="firstName"
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
                 placeholder="First Name"
                 required
+                className="card"
+                style={{ 
+                  width: '100%', 
+                  padding: 'var(--spacing-md)',
+                  border: '2px solid var(--medium-gray)',
+                  borderRadius: 'var(--border-radius-md)',
+                  marginTop: 'var(--spacing-sm)'
+                }}
               />
             </div>
-            <div className="form-group">
+            <div>
+              <label htmlFor="lastName" className="font-semibold">👤 Last Name</label>
               <input
                 type="text"
+                id="lastName"
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleChange}
                 placeholder="Last Name"
                 required
+                className="card"
+                style={{ 
+                  width: '100%', 
+                  padding: 'var(--spacing-md)',
+                  border: '2px solid var(--medium-gray)',
+                  borderRadius: 'var(--border-radius-md)',
+                  marginTop: 'var(--spacing-sm)'
+                }}
               />
             </div>
           </div>
 
-          <div className="form-group">
+          <div>
+            <label htmlFor="idNumber" className="font-semibold">🆔 ID Number</label>
             <input
               type="text"
+              id="idNumber"
               name="idNumber"
               value={formData.idNumber}
               onChange={handleChange}
               placeholder="ID (9 digits)"
               required
               pattern="\d{9}"
+              className="card"
+              style={{ 
+                width: '100%', 
+                padding: 'var(--spacing-md)',
+                border: '2px solid var(--medium-gray)',
+                borderRadius: 'var(--border-radius-md)',
+                marginTop: 'var(--spacing-sm)'
+              }}
             />
           </div>
 
-          <div className="form-group">
+          <div>
+            <label htmlFor="email" className="font-semibold">📧 Email</label>
             <input
               type="email"
+              id="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               placeholder="Email"
               required
+              className="card"
+              style={{ 
+                width: '100%', 
+                padding: 'var(--spacing-md)',
+                border: '2px solid var(--medium-gray)',
+                borderRadius: 'var(--border-radius-md)',
+                marginTop: 'var(--spacing-sm)'
+              }}
             />
           </div>
 
-          <div className="form-group password-group">
-            <input
-              type={showPasswords ? "text" : "password"}
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Password"
-              required
-            />
-            <button
-              type="button"
-              className="toggle-password"
-              onClick={togglePasswordVisibility}
-            >
-              {showPasswords ? "👁️" : "👁️‍🗨️"}
-            </button>
+          <div>
+            <label htmlFor="password" className="font-semibold">🔒 Password</label>
+            <div style={{ position: 'relative' }}>
+              <input
+                type={showPasswords ? "text" : "password"}
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Password"
+                required
+                className="card"
+                style={{ 
+                  width: '100%', 
+                  padding: 'var(--spacing-md)',
+                  border: '2px solid var(--medium-gray)',
+                  borderRadius: 'var(--border-radius-md)',
+                  marginTop: 'var(--spacing-sm)'
+                }}
+              />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                style={{
+                  position: 'absolute',
+                  right: 'var(--spacing-md)',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '1.2rem'
+                }}
+              >
+                {showPasswords ? "👁️" : "👁️‍🗨️"}
+              </button>
+            </div>
           </div>
 
-          <div className="form-group password-group">
-            <input
-              type={showPasswords ? "text" : "password"}
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              placeholder="Confirm Password"
-              required
-            />
-            <button
-              type="button"
-              className="toggle-password"
-              onClick={togglePasswordVisibility}
-            >
-              {showPasswords ? "👁️" : "👁️‍🗨️"}
-            </button>
+          <div>
+            <label htmlFor="confirmPassword" className="font-semibold">🔐 Confirm Password</label>
+            <div style={{ position: 'relative' }}>
+              <input
+                type={showPasswords ? "text" : "password"}
+                id="confirmPassword"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                placeholder="Confirm Password"
+                required
+                className="card"
+                style={{ 
+                  width: '100%', 
+                  padding: 'var(--spacing-md)',
+                  border: '2px solid var(--medium-gray)',
+                  borderRadius: 'var(--border-radius-md)',
+                  marginTop: 'var(--spacing-sm)'
+                }}
+              />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                style={{
+                  position: 'absolute',
+                  right: 'var(--spacing-md)',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '1.2rem'
+                }}
+              >
+                {showPasswords ? "👁️" : "👁️‍🗨️"}
+              </button>
+            </div>
           </div>
 
-          <button type="submit" disabled={loading} className="submit-btn">
-            {loading ? 'Creating Account...' : 'Sign Up'}
+          {error && (
+            <div className="message message-error">
+              <p>{error}</p>
+            </div>
+          )}
+
+          {success && (
+            <div className="message message-success">
+              <p>{success}</p>
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="btn btn-primary btn-lg"
+            disabled={loading}
+          >
+            {loading ? (
+              <>
+                <div className="loading-spinner" style={{ width: '20px', height: '20px', marginRight: 'var(--spacing-sm)' }}></div>
+                Creating Account...
+              </>
+            ) : (
+              '🚀 Create Account'
+            )}
           </button>
         </form>
+
+        <div className="text-center mt-4">
+          <button className="btn btn-outline" onClick={onBack}>
+            ← Back to Welcome
+          </button>
+        </div>
       </div>
     </div>
   );

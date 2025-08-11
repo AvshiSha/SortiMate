@@ -2,18 +2,17 @@ import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 import { auth } from '../firebase/config';
-import '../styles/SignIn.css';
 import { useNavigate } from 'react-router-dom';
 
 const signInWithIDAndPassword = async (idNumber, password) => {
-  // שלוף את האימייל הפיקטיבי מהת"ז
+  // Get the fake email from the ID
   const db = getFirestore();
   const q = query(collection(db, 'users'), where('user_id', '==', idNumber));
   const querySnapshot = await getDocs(q);
   if (querySnapshot.empty) {
     throw new Error('No user found with this ID number');
   }
-  // צור את האימייל הפיקטיבי
+  // Create the fake email
   const fakeEmail = `${idNumber}@sortimate.local`;
   return signInWithEmailAndPassword(auth, fakeEmail, password);
 };
@@ -47,7 +46,15 @@ const SignIn = ({ onBack }) => {
 
     try {
       await signInWithIDAndPassword(formData.idNumber, formData.password);
-      navigate('/dashboard');
+      
+      // Check if there's a redirect bin ID stored
+      const redirectBinId = sessionStorage.getItem('redirectBinId');
+      if (redirectBinId) {
+        sessionStorage.removeItem('redirectBinId');
+        navigate(`/dashboard?bin=${redirectBinId}`);
+      } else {
+        navigate('/dashboard');
+      }
     } catch (error) {
       console.error('Sign in error:', error);
       setError(error.message);
@@ -57,44 +64,103 @@ const SignIn = ({ onBack }) => {
   };
 
   return (
-    <div className="signin-container">
-      <div className="signin-box">
-        <button className="back-btn" onClick={onBack}>← Back</button>
-        <h2>Sign In</h2>
-        {error && <div className="error-message">{error}</div>}
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
+    <div className="container-sm">
+      <div className="card">
+        <div className="text-center mb-4">
+          <div className="text-success" style={{ fontSize: '4rem' }}>🌱</div>
+          <h1 className="text-success">Welcome Back!</h1>
+          <p className="text-secondary">Continue your recycling journey</p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="grid grid-1">
+          <div>
+            <label htmlFor="idNumber" className="font-semibold">🆔 ID Number</label>
             <input
               type="text"
+              id="idNumber"
               name="idNumber"
               value={formData.idNumber}
               onChange={handleChange}
               placeholder="ID Number (9 digits)"
               required
               pattern="\d{9}"
+              className="card"
+              style={{ 
+                width: '100%', 
+                padding: 'var(--spacing-md)',
+                border: '2px solid var(--medium-gray)',
+                borderRadius: 'var(--border-radius-md)',
+                marginTop: 'var(--spacing-sm)'
+              }}
             />
           </div>
-          <div className="form-group password-group">
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Password"
-              required
-            />
-            <button
-              type="button"
-              className="toggle-password"
-              onClick={togglePasswordVisibility}
-            >
-              {showPassword ? "👁️" : "👁️‍🗨️"}
-            </button>
+
+          <div>
+            <label htmlFor="password" className="font-semibold">🔒 Password</label>
+            <div style={{ position: 'relative' }}>
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Password"
+                required
+                className="card"
+                style={{ 
+                  width: '100%', 
+                  padding: 'var(--spacing-md)',
+                  border: '2px solid var(--medium-gray)',
+                  borderRadius: 'var(--border-radius-md)',
+                  marginTop: 'var(--spacing-sm)'
+                }}
+              />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                style={{
+                  position: 'absolute',
+                  right: 'var(--spacing-md)',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '1.2rem'
+                }}
+              >
+                {showPassword ? "👁️" : "👁️‍🗨️"}
+              </button>
+            </div>
           </div>
-          <button type="submit" disabled={loading} className="submit-btn">
-            {loading ? 'Signing In...' : 'Sign In'}
+
+          {error && (
+            <div className="message message-error">
+              <p>{error}</p>
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="btn btn-primary btn-lg"
+            disabled={loading}
+          >
+            {loading ? (
+              <>
+                <div className="loading-spinner" style={{ width: '20px', height: '20px', marginRight: 'var(--spacing-sm)' }}></div>
+                Signing In...
+              </>
+            ) : (
+              '🚀 Sign In'
+            )}
           </button>
         </form>
+
+        <div className="text-center mt-4">
+          <button className="btn btn-outline" onClick={onBack}>
+            ← Back to Welcome
+          </button>
+        </div>
       </div>
     </div>
   );
