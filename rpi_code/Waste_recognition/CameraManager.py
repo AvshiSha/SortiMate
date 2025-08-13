@@ -12,6 +12,7 @@ class CameraManager:
         self.picam2.configure(self.picam2.create_still_configuration(
             main={"format": "RGB888", "size": (3280, 2464)}
         ))
+        self.picam2.set_controls({"ScalerCrop": (820, 616, 1640, 1232)})
         self.picam2.start()
         
         #TO DELETE?
