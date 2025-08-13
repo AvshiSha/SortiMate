@@ -8,13 +8,13 @@ from firebase_handler import FirebaseHandler
 
 def main():
     try:
-        firebase_handler = FirebaseHandler()
+        #firebase_handler = FirebaseHandler()
         #sorter = SortingMechanism(rotation_pin=17, gate_pin=27)
         camera = CameraManager()
         classifier = WasteClassifier()
         #laser_sensor = LaserSensor(laser_pin=23)
 
-        bin_id = load_bin_id()
+        #bin_id = load_bin_id()
         print("Smart Recycling Bin initialized...")
         print("Waiting for object to enter the bin...")
 
@@ -40,15 +40,15 @@ def main():
             #print(f"Sorting waste of type: {predicted_label}")
             #sorter.sort_waste(waste_type)
 
-            try:
-                waste_event_id = firebase_handler.log_waste_event(
-                    bin_id=bin_id,
-                    waste_type=waste_type.name,
-                    confidence=confidence
-                )
-                print(f"Waste event logged with ID: {waste_event_id}") 
-            except Exception as log_err:
-                print(f"Failed to log waste event: {log_err}")
+            # try:
+            #     waste_event_id = firebase_handler.log_waste_event(
+            #         bin_id=bin_id,
+            #         waste_type=waste_type.name,
+            #         confidence=confidence
+            #     )
+            #     print(f"Waste event logged with ID: {waste_event_id}") 
+            # except Exception as log_err:
+            #     print(f"Failed to log waste event: {log_err}")
 
             # Wait until beam is restored before detecting the next object
             #while laser_sensor.is_beam_broken():
