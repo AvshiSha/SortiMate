@@ -55,7 +55,9 @@ def main():
             #    time.sleep(0.1)
             
             print("Item sorted. Waiting for the next item...")
-            break #TO DELETE
+            user_char = input("Press q to quit, anything else to continue:") #TO DELETE
+            if user_char.lower() == 'q':
+                break
 
     except KeyboardInterrupt:
         print("\nProgram interrupted by user")
