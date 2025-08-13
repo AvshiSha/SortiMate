@@ -10,7 +10,7 @@ class CameraManager:
         # Initialize and configure for still capture
         self.picam2 = Picamera2()
         self.picam2.configure(self.picam2.create_still_configuration(
-            main={"format": "RGB888", "size": (640, 480)} # TO EDIT: size and format
+            main={"format": "RGB888", "size": (3280, 2464)}
         ))
         self.picam2.start()
         
