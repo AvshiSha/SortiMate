@@ -65,6 +65,7 @@ def main():
                     wrong_event_id, on_answered=on_answered)
 
                 # Wait (with timeout) for the user's answer
+
                 start_wait = time.time()
                 try:
                     while not user_answered and time.time() - start_wait < TIME_OUT_USER_ANSWER:
