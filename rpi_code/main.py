@@ -3,20 +3,20 @@ from sorting_mechanism import SortingMechanism, WasteType
 
 def main():
     try:
-        sorter = SortingMechanism(rotation_pin=27, gate_pin=22) # TO EDIT: GPIO17 for rotation servo, GPIO27 for gate servo
+        sorter = SortingMechanism(rotation_pin=17, gate_pin=27) 
         print("Smart Recycling Bin initialized...")
         
-        time.sleep(2)
-        sorter.gate_servo.set_angle(150)
-        time.sleep(2)
-        sorter.rotation_servo.set_angle(180)
-        time.sleep(2)
-        sorter.rotation_servo.set_angle(0)
-        time.sleep(2)
+        # time.sleep(2)
+        # sorter.gate_servo.set_angle(150)
+        # time.sleep(2)
+        # sorter.rotation_servo.set_angle(180)
+        # time.sleep(2)
+        # sorter.rotation_servo.set_angle(0)
+        # time.sleep(2)
         
-        sorter.gate_servo.set_angle(0)
-        time.sleep(2)
         sorter.rotation_servo.set_angle(90)
+        time.sleep(2)
+        sorter.gate_servo.set_angle(0)
         time.sleep(2)
         
         
