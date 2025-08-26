@@ -159,7 +159,7 @@ import time
 # Use BCM pin numbering (GPIO numbers, not physical pins)
 GPIO.setmode(GPIO.BCM)
 
-BUTTON_PIN = 17  # <-- Change if you connected to a different GPIO
+BUTTON_PIN = 26  # <-- Change if you connected to a different GPIO
 
 # Configure the pin as input with an internal pull-up resistor
 GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
