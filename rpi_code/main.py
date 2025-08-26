@@ -18,7 +18,7 @@ def main():
         sorter.gate_servo.set_angle(0)
         time.sleep(2)
         print("moving gate to 115")
-        sorter.gate_servo.set_angle(115)
+        sorter.gate_servo.set_angle(110)
         time.sleep(2)
         
         
