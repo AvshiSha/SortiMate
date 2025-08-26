@@ -14,9 +14,14 @@ def main():
         # sorter.rotation_servo.set_angle(0)
         # time.sleep(2)
         
-        sorter.rotation_servo.set_angle(90)
+        print("moving gate to 90")
+        sorter.gate_servo.set_angle(90)
         time.sleep(2)
+        print("moving gate to 0")
         sorter.gate_servo.set_angle(0)
+        time.sleep(2)
+        print("moving gate to 90")
+        sorter.gate_servo.set_angle(90)
         time.sleep(2)
         
         
