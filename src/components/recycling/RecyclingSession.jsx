@@ -7,6 +7,7 @@ import IdentificationConfirmation from './IdentificationConfirmation';
 import CorrectionForm from './CorrectionForm';
 import SessionSummary from './SessionSummary';
 import WrongClassificationModal from './WrongClassificationModal';
+import soundEffects from '../../utils/soundEffects';
 
 const RecyclingSession = ({ userData }) => {
   const { binId } = useParams();
@@ -236,11 +237,16 @@ const RecyclingSession = ({ userData }) => {
     console.log(`🥤 Added ${bottleType} bottle to session. Total points: ${newTotalPoints}`);
     console.log(`📊 Updated ${statsKey} count to ${(sessionBottles[statsKey] || 0) + 1}`);
 
+    // Play coin drop sound when points are earned
+    soundEffects.playCoinDrop();
+
     // Show guest user warning if applicable
     if (userData?.role === 'guest') {
       console.log('🎯 Guest user - points will be lost on session expiry');
     }
   };
+
+  
 
   // Reset session timer (used for wrong classification modal)
   const resetSessionTimer = () => {
@@ -823,15 +829,15 @@ const RecyclingSession = ({ userData }) => {
   if (currentStep === 'waiting') {
     return (
       <>
-        <WaitingScreen
-          onIdentificationReceived={handleIdentificationReceived}
-          userData={userData}
-          sessionBottles={sessionBottles}
-          sessionPoints={sessionPoints}
-          onFinishSession={endSession}
-          sessionStartTime={sessionStartTime}
-          lastBottleTime={lastBottleTime}
-        />
+                 <WaitingScreen
+           onIdentificationReceived={handleIdentificationReceived}
+           userData={userData}
+           sessionBottles={sessionBottles}
+           sessionPoints={sessionPoints}
+           onFinishSession={endSession}
+           sessionStartTime={sessionStartTime}
+           lastBottleTime={lastBottleTime}
+         />
         
         {/* Wrong Classification Modal - rendered on top of any state */}
         <WrongClassificationModal

@@ -8,7 +8,7 @@ const WaitingScreen = ({
   sessionPoints, 
   onFinishSession, 
   sessionStartTime, 
-  lastBottleTime 
+  lastBottleTime
 }) => {
   const [showAdminDemo, setShowAdminDemo] = useState(false);
   const [selectedBottleType, setSelectedBottleType] = useState('');
@@ -60,6 +60,8 @@ const WaitingScreen = ({
 
     onIdentificationReceived(simulatedWasteEvent);
   };
+
+
 
   // Calculate total bottles
   const totalBottles = Object.values(sessionBottles || {}).reduce((sum, count) => sum + count, 0);
@@ -306,6 +308,25 @@ const WaitingScreen = ({
               </button>
             </div>
           )}
+
+          {/* Sound Test Button - For mobile sound activation */}
+          <div className="card mt-4">
+            <h4 className="text-info mb-3">🎵 Sound Test</h4>
+            <p className="text-secondary mb-3">Tap to test coin drop sound (helps enable mobile audio)</p>
+            
+            <button
+              onClick={() => {
+                import('../../utils/soundEffects').then(module => {
+                  const soundEffects = module.default;
+                  soundEffects.playCoinDrop();
+                });
+              }}
+              className="btn btn-info btn-lg"
+              style={{ width: '100%' }}
+            >
+              🔊 Test Sound
+            </button>
+          </div>
         </div>
       </div>
     </div>
